@@ -1,0 +1,243 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+    <meta charset="UTF-8">
+
+    <meta name="viewport"
+          content="width=device-width, initial-scale=1.0">
+
+    <title>CivicFix - Admin Login</title>
+
+    <style>
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: Arial, sans-serif;
+        }
+
+        body {
+            min-height: 100vh;
+
+            display: flex;
+            justify-content: center;
+            align-items: center;
+
+            background: linear-gradient(
+                135deg,
+                #e8f1f8,
+                #ffffff
+            );
+        }
+
+        .login-box {
+            width: 400px;
+            max-width: 90%;
+
+            background: white;
+
+            padding: 35px;
+
+            border-radius: 12px;
+
+            box-shadow:
+                0 8px 25px
+                rgba(0, 0, 0, 0.12);
+        }
+
+        .logo {
+            text-align: center;
+
+            color: #12355b;
+
+            font-size: 30px;
+
+            font-weight: bold;
+
+            margin-bottom: 5px;
+        }
+
+        .admin-title {
+            text-align: center;
+
+            color: #f4a261;
+
+            font-size: 18px;
+
+            font-weight: bold;
+
+            margin-bottom: 25px;
+        }
+
+        label {
+            display: block;
+
+            color: #12355b;
+
+            font-weight: bold;
+
+            margin-bottom: 7px;
+        }
+
+        .form-group {
+            margin-bottom: 20px;
+        }
+
+        input {
+            width: 100%;
+
+            padding: 13px;
+
+            border: 1px solid #ccc;
+
+            border-radius: 6px;
+
+            outline: none;
+
+            font-size: 15px;
+        }
+
+        input:focus {
+            border-color: #12355b;
+        }
+
+        button {
+            width: 100%;
+
+            padding: 14px;
+
+            border: none;
+
+            border-radius: 6px;
+
+            background: #12355b;
+
+            color: white;
+
+            font-size: 16px;
+
+            font-weight: bold;
+
+            cursor: pointer;
+        }
+
+        button:hover {
+            background: #1e568c;
+        }
+
+        .error {
+            background: #ffe5e5;
+
+            color: #c0392b;
+
+            padding: 10px;
+
+            border-radius: 6px;
+
+            text-align: center;
+
+            margin-bottom: 18px;
+        }
+
+        .home-link {
+            text-align: center;
+
+            margin-top: 20px;
+        }
+
+        .home-link a {
+            color: #12355b;
+
+            text-decoration: none;
+
+            font-weight: bold;
+        }
+
+    </style>
+
+</head>
+
+
+<body>
+
+    <div class="login-box">
+
+        <div class="logo">
+            CivicFix
+        </div>
+
+        <div class="admin-title">
+            ADMIN LOGIN
+        </div>
+
+
+        {% if error %}
+
+        <div class="error">
+            {{ error }}
+        </div>
+
+        {% endif %}
+
+
+        <form method="POST"
+              action="/admin-login">
+
+
+            <div class="form-group">
+
+                <label>
+                    Admin Email
+                </label>
+
+                <input
+                    type="email"
+                    name="email"
+                    placeholder="Enter admin email"
+                    required
+                >
+
+            </div>
+
+
+            <div class="form-group">
+
+                <label>
+                    Password
+                </label>
+
+                <input
+                    type="password"
+                    name="password"
+                    placeholder="Enter admin password"
+                    required
+                >
+
+            </div>
+
+
+            <button type="submit">
+
+                Admin Login
+
+            </button>
+
+        </form>
+
+
+        <div class="home-link">
+
+            <a href="/">
+                ← Back to Home
+            </a>
+
+        </div>
+
+    </div>
+
+</body>
+
+</html>

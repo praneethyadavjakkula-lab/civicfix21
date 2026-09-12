@@ -1,0 +1,372 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+
+    <title>My Complaint Details - CivicFix</title>
+
+    <style>
+
+        body {
+            margin: 0;
+            font-family: Arial, sans-serif;
+            background: #f4f6f8;
+        }
+
+        nav {
+            background: #12355b;
+            color: white;
+            padding: 15px 30px;
+
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        nav h2 {
+            margin: 0;
+        }
+
+        nav a {
+            color: white;
+            text-decoration: none;
+        }
+
+        .container {
+            width: 80%;
+            max-width: 900px;
+            margin: 30px auto;
+        }
+
+        .card {
+            background: white;
+            padding: 30px;
+            border-radius: 10px;
+
+            box-shadow:
+                0 4px 15px rgba(0,0,0,0.08);
+        }
+
+        h1 {
+            color: #12355b;
+        }
+
+        .info {
+            margin: 15px 0;
+            line-height: 1.5;
+        }
+
+        .label {
+            font-weight: bold;
+            color: #333;
+        }
+
+        .status {
+            display: inline-block;
+            padding: 7px 14px;
+            border-radius: 20px;
+            font-weight: bold;
+        }
+
+        .pending {
+            background: #fff3cd;
+            color: #856404;
+        }
+
+        .progress {
+            background: #cfe2ff;
+            color: #084298;
+        }
+
+        .resolved {
+            background: #d1e7dd;
+            color: #0f5132;
+        }
+
+        .photo {
+            max-width: 450px;
+            max-height: 350px;
+            margin-top: 10px;
+            border-radius: 8px;
+        }
+
+        .button {
+            display: inline-block;
+            padding: 10px 18px;
+            margin-top: 15px;
+            background: #1e568c;
+            color: white;
+            text-decoration: none;
+            border-radius: 5px;
+        }
+
+        .back {
+            background: #555;
+        }
+
+    </style>
+
+</head>
+
+
+<body>
+
+
+<nav>
+
+    <h2>CivicFix</h2>
+
+    <a href="/logout">
+        Logout
+    </a>
+
+</nav>
+
+
+<div class="container">
+
+    <div class="card">
+
+        <h1>Complaint Details</h1>
+
+
+        <div class="info">
+
+            <span class="label">
+                Complaint ID:
+            </span>
+
+            {{ complaint[0] }}
+
+        </div>
+
+
+        <div class="info">
+
+            <span class="label">
+                Category:
+            </span>
+
+            {{ complaint[1] }}
+
+
+        </div>
+        <div class="info">
+
+    <span class="label">
+        Priority:
+    </span>
+
+    {% if complaint[2] == "High" %}
+
+        <span class="status" style="background:#ffdddd; color:#d60000;">
+            🔴 High
+        </span>
+
+    {% elif complaint[2] == "Medium" %}
+
+        <span class="status" style="background:#fff3cd; color:#856404;">
+            🟡 Medium
+        </span>
+
+    {% elif complaint[2] == "Low" %}
+
+        <span class="status" style="background:#d1e7dd; color:#0f5132;">
+            🟢 Low
+        </span>
+
+    {% endif %}
+
+</div>
+
+
+        <div class="info">
+
+            <span class="label">
+                Title:
+            </span>
+
+            {{ complaint[3] }}
+
+        </div>
+
+
+        <div class="info">
+
+            <span class="label">
+                Description:
+            </span>
+
+            {{ complaint[4] }}
+
+        </div>
+
+
+        <div class="info">
+
+            <span class="label">
+                Location:
+            </span>
+
+            {{ complaint[5] }}
+
+        </div>
+
+
+        <div class="info">
+
+            <span class="label">
+                Submitted Date:
+            </span>
+
+            {{ complaint[6] }}
+
+        </div>
+
+
+        <div class="info">
+
+            <span class="label">
+                Current Status:
+            </span>
+
+            {% if complaint[7] == "Pending" %}
+
+                <span class="status pending">
+                    Pending
+                </span>
+
+            {% elif complaint[7] == "In Progress" %}
+
+                <span class="status progress">
+                    In Progress
+                </span>
+
+            {% elif complaint[7] == "Resolved" %}
+
+                <span class="status resolved">
+                    Resolved
+                </span>
+
+            {% else %}
+
+                <span class="status">
+                    {{ complaint[7] }}
+                </span>
+
+            {% endif %}
+
+        </div>
+        <!-- STATUS TIMELINE -->
+
+<div class="info">
+
+    <span class="label">
+        Complaint Progress:
+    </span>
+
+    <div style="margin-top:20px;">
+
+        <p>
+            {% if complaint[7] == "Pending" %}
+                🟡 <strong>Pending</strong> → Complaint received
+            {% else %}
+                ✅ Pending → Complaint received
+            {% endif %}
+        </p>
+
+        <p>
+            {% if complaint[7] == "In Progress" %}
+                🔵 <strong>In Progress</strong> → Work is being done
+            {% elif complaint[7] == "Resolved" %}
+                ✅ In Progress → Work completed
+            {% else %}
+                ⚪ In Progress → Waiting for action
+            {% endif %}
+        </p>
+
+        <p>
+            {% if complaint[7] == "Resolved" %}
+                🟢 <strong>Resolved</strong> → Complaint resolved
+            {% else %}
+                ⚪ Resolved → Not resolved yet
+            {% endif %}
+        </p>
+
+    </div>
+
+</div>
+
+
+        <div class="info">
+
+            <span class="label">
+                Complaint Photo:
+            </span>
+
+            <br>
+
+            {% if complaint[8] %}
+
+                <img
+                    class="photo"
+                    src="{{ url_for(
+                        'uploaded_file',
+                        filename=complaint[8]
+                    ) }}"
+                    alt="Complaint Photo"
+                >
+
+            {% else %}
+
+                <p>No photo uploaded.</p>
+
+            {% endif %}
+
+        </div>
+
+
+        <div class="info">
+
+            <span class="label">
+                Location Map:
+            </span>
+
+            <br>
+
+            {% if complaint[9] and complaint[10] %}
+
+                <a
+                    class="button"
+                    href="https://www.google.com/maps?q={{ complaint[8] }},{{ complaint[9] }}"
+                    target="_blank"
+                >
+                    View Location on Google Maps
+                </a>
+
+            {% else %}
+
+                <p>
+                    Map location not available.
+                </p>
+
+            {% endif %}
+
+        </div>
+
+
+        <a
+            href="/my-complaints"
+            class="button back"
+        >
+            Back to My Complaints
+        </a>
+
+    </div>
+
+</div>
+
+
+</body>
+
+</html>

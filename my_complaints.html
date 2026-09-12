@@ -1,0 +1,318 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>My Complaints - CivicFix</title>
+
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background: #f4f6f8;
+            margin: 0;
+        }
+
+        nav {
+            background: #12355b;
+            padding: 15px 30px;
+            color: white;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        nav h2 {
+            margin: 0;
+        }
+
+        nav a {
+            color: white;
+            text-decoration: none;
+            margin-left: 20px;
+        }
+
+        .container {
+            width: 90%;
+            margin: 30px auto;
+        }
+
+        h1 {
+            color: #12355b;
+        }
+
+        .complaint-card {
+            background: white;
+            padding: 20px;
+            margin-bottom: 20px;
+            border-radius: 10px;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.08);
+        }
+
+        .complaint-card h2 {
+            color: #12355b;
+            margin-top: 0;
+        }
+
+        .info {
+            margin: 8px 0;
+        }
+
+        .label {
+            font-weight: bold;
+        }
+
+        .status {
+            display: inline-block;
+            padding: 6px 12px;
+            border-radius: 20px;
+            font-weight: bold;
+        }
+
+        .pending {
+            background: #fff3cd;
+            color: #856404;
+        }
+
+        .progress {
+            background: #cfe2ff;
+            color: #084298;
+        }
+
+        .resolved {
+            background: #d1e7dd;
+            color: #0f5132;
+        }
+
+        .map-button {
+            display: inline-block;
+            margin-top: 10px;
+            padding: 8px 15px;
+            background: #1e568c;
+            color: white;
+            text-decoration: none;
+            border-radius: 5px;
+        }
+
+        .empty {
+            background: white;
+            padding: 30px;
+            text-align: center;
+            border-radius: 10px;
+        }
+        .tracking {
+    margin-top: 25px;
+    padding-top: 20px;
+    border-top: 1px solid #ddd;
+}
+
+.tracking h3 {
+    color: #12355b;
+}
+
+.timeline {
+    display: flex;
+    justify-content: space-between;
+    position: relative;
+    margin: 30px 20px;
+}
+
+.timeline::before {
+    content: "";
+    position: absolute;
+    top: 15px;
+    left: 5%;
+    right: 5%;
+    height: 3px;
+    background: #ddd;
+    z-index: 0;
+}
+
+.step {
+    text-align: center;
+    position: relative;
+    z-index: 1;
+    width: 30%;
+}
+
+.circle {
+    width: 30px;
+    height: 30px;
+    margin: auto;
+    border-radius: 50%;
+    background: #ddd;
+    color: white;
+    line-height: 30px;
+    font-weight: bold;
+}
+
+.step.completed .circle {
+    background: #2a9d8f;
+}
+
+.step p {
+    font-size: 14px;
+    margin-top: 8px;
+}
+.photo {
+    max-width: 300px;
+    max-height: 220px;
+    margin-top: 10px;
+    border-radius: 8px;
+}
+    </style>
+</head>
+
+<body>
+
+<nav>
+    <h2>CivicFix</h2>
+
+    <div>
+        <a href="/dashboard">Dashboard</a>
+        <a href="/report">Report Problem</a>
+        <a href="/logout">Logout</a>
+    </div>
+</nav>
+
+<div class="container">
+
+    <h1>My Complaints</h1>
+
+    {% if complaints %}
+
+        {% for complaint in complaints %}
+
+        <div class="complaint-card">
+
+            <h2>{{ complaint[2] }}</h2>
+
+            <div class="info">
+                <span class="label">Complaint ID:</span>
+                {{ complaint[0] }}
+            </div>
+            <a
+    href="/my-complaint/{{ complaint[0] }}"
+    class="map-button"
+>
+    View Details
+</a>
+
+            <div class="info">
+                <span class="label">Category:</span>
+                {{ complaint[1] }}
+            </div>
+
+            <div class="info">
+                <span class="label">Description:</span>
+                {{ complaint[3] }}
+            </div>
+
+            <div class="info">
+                <span class="label">Location:</span>
+                {{ complaint[4] }}
+            </div>
+
+            <div class="info">
+                <span class="label">Date:</span>
+                {{ complaint[5] }}
+            </div>
+            <div class="tracking">
+                <div class="info">
+
+    <span class="label">Photo:</span>
+
+    <br>
+
+    {% if complaint[7] %}
+
+        <img
+            class="photo"
+            src="{{ url_for('uploaded_file', filename=complaint[7]) }}"
+            alt="Complaint Photo"
+        >
+
+    {% else %}
+
+        <p>No photo uploaded.</p>
+
+    {% endif %}
+
+</div>
+<div class="info">
+
+    <span class="label">Location Map:</span>
+
+    <br>
+
+    {% if complaint[8] and complaint[9] %}
+
+        <a
+            class="map-button"
+            href="https://www.google.com/maps?q={{ complaint[8] }},{{ complaint[9] }}"
+            target="_blank"
+        >
+            View Location on Google Maps
+        </a>
+
+    {% else %}
+
+        <p>Map location not available.</p>
+
+    {% endif %}
+
+</div>
+
+    <h3>Complaint Tracking</h3>
+
+    <div class="timeline">
+
+        <div class="step completed">
+            <div class="circle">✓</div>
+            <p>Complaint Submitted</p>
+        </div>
+
+        <div class="
+            step
+            {% if complaint[6] == 'In Progress' or complaint[6] == 'Resolved' %}
+                completed
+            {% endif %}
+        ">
+            <div class="circle">✓</div>
+            <p>In Progress</p>
+        </div>
+
+        <div class="
+            step
+            {% if complaint[6] == 'Resolved' %}
+                completed
+            {% endif %}
+        ">
+            <div class="circle">✓</div>
+            <p>Resolved</p>
+        </div>
+
+    </div>
+
+    <p>
+        <strong>Current Status:</strong>
+        {{ complaint[6] }}
+    </p>
+
+</div>
+        {% endfor %}
+
+    {% else %}
+
+        <div class="empty">
+            <h2>No complaints found</h2>
+            <p>You have not submitted any complaints yet.</p>
+
+            <a href="/report" class="map-button">
+                Report a Problem
+            </a>
+        </div>
+
+    {% endif %}
+
+</div>
+
+</body>
+</html>

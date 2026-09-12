@@ -1,0 +1,690 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>CivicFix - Smart Civic Complaint Management</title>
+
+    <link rel="stylesheet"
+          href="{{ url_for('static', filename='style.css') }}">
+</head>
+
+<body>
+
+    <!-- ================= NAVBAR ================= -->
+
+    <nav>
+        <div class="logo">
+            CivicFix
+        </div>
+
+       <div class="nav-links">
+    <a href="/">Home</a>
+    <a href="#categories">Services</a>
+    <a href="#how-it-works">How It Works</a>
+    <a href="/login">Login</a>
+    <a href="/register" class="register-btn">Register</a>
+    <a href="/admin-login" class="admin-btn">Admin Login</a>
+</div>
+    </nav>
+
+
+    <!-- ================= HERO ================= -->
+
+    <section class="hero">
+
+        <div class="hero-content">
+
+            <div class="hero-badge">
+                🏙️ Building Better Communities Together
+            </div>
+
+            <h1>
+                Fix Your City with
+                <span>CivicFix</span>
+            </h1>
+
+            <p>
+                Report civic problems in your area, track their progress,
+                and help make your community cleaner, safer and better.
+            </p>
+
+            <div class="hero-buttons">
+
+                <a href="/login" class="report-btn">
+                    🚨 Report a Problem
+                </a>
+
+                <a href="#how-it-works" class="learn-btn">
+                    Learn How It Works →
+                </a>
+
+            </div>
+
+        </div>
+
+    </section>
+
+
+    <!-- ================= STATISTICS ================= -->
+
+    <section class="statistics">
+
+        <div class="stat-card">
+            <div class="stat-icon">📢</div>
+            <h2>10,250+</h2>
+            <p>Complaints Reported</p>
+        </div>
+
+        <div class="stat-card">
+            <div class="stat-icon">✅</div>
+            <h2>7,850+</h2>
+            <p>Issues Resolved</p>
+        </div>
+
+        <div class="stat-card">
+            <div class="stat-icon">👥</div>
+            <h2>1,920+</h2>
+            <p>Registered Citizens</p>
+        </div>
+
+        <div class="stat-card">
+            <div class="stat-icon">📍</div>
+            <h2>500+</h2>
+            <p>Areas Covered</p>
+        </div>
+
+    </section>
+
+
+    <!-- ================= CATEGORIES ================= -->
+
+    <section class="features" id="categories">
+
+        <div class="section-heading">
+
+            <span>REPORT CIVIC ISSUES</span>
+
+            <h2>What Can You Report?</h2>
+
+            <p>
+                Easily report different types of civic problems
+                in your neighbourhood.
+            </p>
+
+        </div>
+
+
+        <div class="feature-container">
+
+
+            <!-- Road -->
+            <div class="feature-card">
+
+                <div class="icon">🛣️</div>
+
+                <h3>Road Problems</h3>
+
+                <p>
+                    Report potholes, damaged roads and
+                    dangerous road conditions.
+                </p>
+
+                <a href="/login">Report →</a>
+
+            </div>
+
+
+            <!-- Street Lights -->
+            <div class="feature-card">
+
+                <div class="icon">💡</div>
+
+                <h3>Street Lights</h3>
+
+                <p>
+                    Report broken or non-working street
+                    lights in your area.
+                </p>
+
+                <a href="/login">Report →</a>
+
+            </div>
+
+
+            <!-- Garbage -->
+            <div class="feature-card">
+
+                <div class="icon">🗑️</div>
+
+                <h3>Garbage</h3>
+
+                <p>
+                    Report garbage accumulation and
+                    waste-management problems.
+                </p>
+
+                <a href="/login">Report →</a>
+
+            </div>
+
+
+            <!-- Water -->
+            <div class="feature-card">
+
+                <div class="icon">🚰</div>
+
+                <h3>Water Problems</h3>
+
+                <p>
+                    Report water leakage, drainage and
+                    water supply issues.
+                </p>
+
+                <a href="/login">Report →</a>
+
+            </div>
+
+
+            <!-- Traffic -->
+            <div class="feature-card">
+
+                <div class="icon">🚦</div>
+
+                <h3>Traffic & Signals</h3>
+
+                <p>
+                    Report damaged signals, traffic
+                    issues and unsafe junctions.
+                </p>
+
+                <a href="/login">Report →</a>
+
+            </div>
+
+
+            <!-- Parks -->
+            <div class="feature-card">
+
+                <div class="icon">🌳</div>
+
+                <h3>Parks & Public Spaces</h3>
+
+                <p>
+                    Report damaged public spaces,
+                    parks and community facilities.
+                </p>
+
+                <a href="/login">Report →</a>
+
+            </div>
+
+
+            <!-- Toilets -->
+            <div class="feature-card">
+
+                <div class="icon">🚽</div>
+
+                <h3>Public Toilets</h3>
+
+                <p>
+                    Report maintenance and cleanliness
+                    problems in public toilets.
+                </p>
+
+                <a href="/login">Report →</a>
+
+            </div>
+
+
+            <!-- Transport -->
+            <div class="feature-card">
+
+                <div class="icon">🚌</div>
+
+                <h3>Public Transport</h3>
+
+                <p>
+                    Report problems related to buses,
+                    stops and public transport facilities.
+                </p>
+
+                <a href="/login">Report →</a>
+
+            </div>
+
+        </div>
+
+    </section>
+
+
+    <!-- ================= HOW IT WORKS ================= -->
+
+    <section class="how-it-works" id="how-it-works">
+
+        <div class="section-heading">
+
+            <span>SIMPLE & FAST</span>
+
+            <h2>How CivicFix Works</h2>
+
+            <p>
+                Report a problem in just a few simple steps.
+            </p>
+
+        </div>
+
+
+        <div class="steps">
+
+
+            <div class="step">
+
+                <div class="step-number">
+                    1
+                </div>
+
+                <div class="step-icon">
+                    👤
+                </div>
+
+                <h3>Register</h3>
+
+                <p>
+                    Create your free CivicFix account
+                    using your basic details.
+                </p>
+
+            </div>
+
+
+            <div class="step">
+
+                <div class="step-number">
+                    2
+                </div>
+
+                <div class="step-icon">
+                    📸
+                </div>
+
+                <h3>Report Problem</h3>
+
+                <p>
+                    Describe the issue, add location
+                    and upload a photo.
+                </p>
+
+            </div>
+
+
+            <div class="step">
+
+                <div class="step-number">
+                    3
+                </div>
+
+                <div class="step-icon">
+                    🔍
+                </div>
+
+                <h3>Track Status</h3>
+
+                <p>
+                    Track your complaint and receive
+                    status updates.
+                </p>
+
+            </div>
+
+
+            <div class="step">
+
+                <div class="step-number">
+                    4
+                </div>
+
+                <div class="step-icon">
+                    ✅
+                </div>
+
+                <h3>Get It Resolved</h3>
+
+                <p>
+                    The concerned authority works
+                    towards resolving the issue.
+                </p>
+
+            </div>
+
+        </div>
+
+    </section>
+
+
+    <!-- ================= TRACK COMPLAINT ================= -->
+
+    <section class="track-section">
+
+        <div class="track-container">
+
+            <div class="track-content">
+
+                <span>COMPLAINT TRACKING</span>
+
+                <h2>
+                    Track Your Complaint
+                </h2>
+
+                <p>
+                    Enter your complaint ID to check
+                    the current status of your civic issue.
+                </p>
+
+                <form>
+
+                    <input
+                        type="text"
+                        placeholder="Enter Complaint ID e.g. CIV-10245"
+                    >
+
+                    <button type="submit">
+                        Track Status
+                    </button>
+
+                </form>
+
+                <small>
+                    Example: CIV-10245
+                </small>
+
+            </div>
+
+
+            <div class="tracking-preview">
+
+                <div class="status-item active">
+                    <span>✓</span>
+                    <div>
+                        <strong>Complaint Submitted</strong>
+                        <small>Complaint received successfully</small>
+                    </div>
+                </div>
+
+                <div class="status-line"></div>
+
+                <div class="status-item active">
+                    <span>✓</span>
+                    <div>
+                        <strong>Under Review</strong>
+                        <small>Complaint is being reviewed</small>
+                    </div>
+                </div>
+
+                <div class="status-line"></div>
+
+                <div class="status-item">
+                    <span>3</span>
+                    <div>
+                        <strong>In Progress</strong>
+                        <small>Authority is working on the issue</small>
+                    </div>
+                </div>
+
+                <div class="status-line"></div>
+
+                <div class="status-item">
+                    <span>4</span>
+                    <div>
+                        <strong>Resolved</strong>
+                        <small>Issue will be marked resolved</small>
+                    </div>
+                </div>
+
+            </div>
+
+        </div>
+
+    </section>
+
+
+    <!-- ================= WHY CIVICFIX ================= -->
+
+    <section class="why-section">
+
+        <div class="section-heading">
+
+            <span>WHY CIVICFIX?</span>
+
+            <h2>Making Civic Reporting Better</h2>
+
+        </div>
+
+
+        <div class="why-container">
+
+
+            <div class="why-card">
+
+                <div class="why-icon">⚡</div>
+
+                <h3>Fast Reporting</h3>
+
+                <p>
+                    Report problems quickly without
+                    complicated procedures.
+                </p>
+
+            </div>
+
+
+            <div class="why-card">
+
+                <div class="why-icon">📍</div>
+
+                <h3>Location Based</h3>
+
+                <p>
+                    Provide the exact location so
+                    authorities can identify the issue.
+                </p>
+
+            </div>
+
+
+            <div class="why-card">
+
+                <div class="why-icon">📸</div>
+
+                <h3>Photo Evidence</h3>
+
+                <p>
+                    Upload photos to clearly show
+                    the problem.
+                </p>
+
+            </div>
+
+
+            <div class="why-card">
+
+                <div class="why-icon">🔔</div>
+
+                <h3>Status Updates</h3>
+
+                <p>
+                    Stay informed about the progress
+                    of your complaint.
+                </p>
+
+            </div>
+
+
+            <div class="why-card">
+
+                <div class="why-icon">🔒</div>
+
+                <h3>Secure</h3>
+
+                <p>
+                    User accounts and complaint
+                    information are securely managed.
+                </p>
+
+            </div>
+
+
+            <div class="why-card">
+
+                <div class="why-icon">🤝</div>
+
+                <h3>Community Driven</h3>
+
+                <p>
+                    Citizens and authorities work
+                    together for better communities.
+                </p>
+
+            </div>
+
+        </div>
+
+    </section>
+
+
+    <!-- ================= FEEDBACK ================= -->
+
+    <section class="feedback-section">
+
+        <div class="section-heading">
+
+            <span>CITIZEN FEEDBACK</span>
+
+            <h2>What Citizens Say</h2>
+
+        </div>
+
+
+        <div class="feedback-container">
+
+            <div class="feedback-card">
+
+                <div class="stars">
+                    ★★★★★
+                </div>
+
+                <p>
+                    "CivicFix makes it very easy to report
+                    local problems and track their progress."
+                </p>
+
+                <h4>
+                    — CivicFix Citizen
+                </h4>
+
+            </div>
+
+
+            <div class="feedback-card">
+
+                <div class="stars">
+                    ★★★★★
+                </div>
+
+                <p>
+                    "The complaint tracking feature gives
+                    us confidence that our reports are being handled."
+                </p>
+
+                <h4>
+                    — Community Member
+                </h4>
+
+            </div>
+
+
+            <div class="feedback-card">
+
+                <div class="stars">
+                    ★★★★☆
+                </div>
+
+                <p>
+                    "A simple platform that encourages
+                    citizens to participate in improving their city."
+                </p>
+
+                <h4>
+                    — CivicFix User
+                </h4>
+
+            </div>
+
+        </div>
+
+    </section>
+
+
+    <!-- ================= CTA ================= -->
+
+    <section class="cta-section">
+
+        <div class="cta-content">
+
+            <h2>
+                Ready to Make Your City Better?
+            </h2>
+
+            <p>
+                Report a civic problem today and become
+                part of the change.
+            </p>
+
+            <a href="/register" class="cta-btn">
+                Get Started Today →
+            </a>
+
+        </div>
+
+    </section>
+
+
+    <!-- ================= FOOTER ================= -->
+
+    <footer>
+
+        <div class="footer-content">
+
+            <div class="footer-logo">
+                CivicFix
+            </div>
+
+            <p>
+                Making Cities Better Together.
+            </p>
+
+            <div class="footer-links">
+
+                <a href="/">Home</a>
+                <a href="/login">Login</a>
+                <a href="/register">Register</a>
+                <a href="/admin-login" class="admin-btn">Admin Login</a>
+
+            </div>
+
+        </div>
+
+        <div class="copyright">
+
+            © 2026 CivicFix |
+            Smart Civic Complaint Management System
+
+        </div>
+
+    </footer>
+
+</body>
+
+</html>

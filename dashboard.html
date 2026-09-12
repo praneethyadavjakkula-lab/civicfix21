@@ -1,0 +1,292 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+
+    <title>Dashboard - CivicFix</title>
+
+    <style>
+
+        body {
+            margin: 0;
+            font-family: Arial, sans-serif;
+            background: #f4f6f8;
+        }
+
+        nav {
+            background: #12355b;
+            color: white;
+            padding: 15px 30px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        nav h2 {
+            margin: 0;
+        }
+
+        nav a {
+            color: white;
+            text-decoration: none;
+            margin-left: 20px;
+        }
+
+        .container {
+            width: 90%;
+            max-width: 1100px;
+            margin: 30px auto;
+        }
+
+        .welcome {
+            background: white;
+            padding: 25px;
+            border-radius: 10px;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.08);
+        }
+
+        .welcome h1 {
+            color: #12355b;
+            margin-top: 0;
+        }
+
+        .stats {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 20px;
+            margin: 25px 0;
+        }
+
+        .stat-card {
+            background: white;
+            padding: 20px;
+            border-radius: 10px;
+            text-align: center;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.08);
+        }
+
+        .stat-card h3 {
+            color: #555;
+            margin-bottom: 10px;
+        }
+
+        .stat-card p {
+            font-size: 32px;
+            font-weight: bold;
+            color: #12355b;
+            margin: 0;
+        }
+
+        .actions {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 20px;
+        }
+
+        .action-card {
+            background: white;
+            padding: 25px;
+            border-radius: 10px;
+            text-align: center;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.08);
+        }
+
+        .action-card h2 {
+            color: #12355b;
+        }
+
+        .action-card p {
+            color: #555;
+        }
+
+        .button {
+            display: inline-block;
+            padding: 10px 18px;
+            background: #1e568c;
+            color: white;
+            text-decoration: none;
+            border-radius: 5px;
+            margin-top: 10px;
+        }
+
+        .button:hover {
+            background: #12355b;
+        }
+
+        footer {
+            margin-top: 40px;
+            background: #12355b;
+            color: white;
+            text-align: center;
+            padding: 20px;
+        }
+
+        @media (max-width: 800px) {
+
+            .stats {
+                grid-template-columns: repeat(2, 1fr);
+            }
+
+            .actions {
+                grid-template-columns: 1fr;
+            }
+
+            nav {
+                flex-direction: column;
+                gap: 10px;
+            }
+
+        }
+
+    </style>
+
+</head>
+
+<body>
+
+<nav>
+
+    <h2>CivicFix</h2>
+
+    <div>
+        <a href="/dashboard">Dashboard</a>
+        <a href="/report">Report Problem</a>
+        <a href="/my-complaints">My Complaints</a>
+        <a href="/logout">Logout</a>
+    </div>
+
+</nav>
+
+
+<div class="container">
+
+    <div class="welcome">
+
+        <h1>Welcome, {{ name }} 👋</h1>
+
+        <p>
+            Manage your civic complaints and track their progress
+            from your dashboard.
+        </p>
+
+    </div>
+
+
+    <!-- Complaint Statistics -->
+
+    <div class="stats">
+
+        <div class="stat-card">
+
+            <h3>Total Complaints</h3>
+
+            <p>{{ total }}</p>
+
+        </div>
+
+
+        <div class="stat-card">
+
+            <h3>Pending</h3>
+
+            <p>{{ pending }}</p>
+
+        </div>
+
+
+        <div class="stat-card">
+
+            <h3>In Progress</h3>
+
+            <p>{{ in_progress }}</p>
+
+        </div>
+
+
+        <div class="stat-card">
+
+            <h3>Resolved</h3>
+
+            <p>{{ resolved }}</p>
+
+        </div>
+
+    </div>
+
+
+    <!-- Quick Actions -->
+
+    <div class="actions">
+
+        <div class="action-card">
+
+            <h2>📢 Report a Problem</h2>
+
+            <p>
+                Found a civic issue in your area?
+                Submit a complaint with location and photo.
+            </p>
+
+            <a
+                href="/report"
+                class="button"
+            >
+                Report Now
+            </a>
+
+        </div>
+
+
+        <div class="action-card">
+
+            <h2>📋 My Complaints</h2>
+
+            <p>
+                View all complaints submitted by you
+                and check their current status.
+            </p>
+
+            <a
+                href="/my-complaints"
+                class="button"
+            >
+                View Complaints
+            </a>
+
+        </div>
+
+
+        <div class="action-card">
+
+            <h2>📍 Track Complaint</h2>
+
+            <p>
+                Track your complaint progress from
+                submission to resolution.
+            </p>
+
+            <a
+                href="/my-complaints"
+                class="button"
+            >
+                Track Now
+            </a>
+
+        </div>
+
+    </div>
+
+</div>
+
+
+<footer>
+
+    <p>
+        © 2026 CivicFix | Making Cities Better Together
+    </p>
+
+</footer>
+
+</body>
+
+</html>

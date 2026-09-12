@@ -1,0 +1,186 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+
+    <title>Complaint Submitted - CivicFix</title>
+
+    <style>
+
+        body {
+            margin: 0;
+            font-family: Arial, sans-serif;
+            background: #f4f6f8;
+        }
+
+        nav {
+            background: #12355b;
+            color: white;
+            padding: 15px 30px;
+
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        nav h2 {
+            margin: 0;
+        }
+
+        nav a {
+            color: white;
+            text-decoration: none;
+        }
+
+        .container {
+            width: 80%;
+            max-width: 700px;
+            margin: 80px auto;
+        }
+
+        .success-card {
+            background: white;
+            padding: 45px;
+            border-radius: 12px;
+            text-align: center;
+
+            box-shadow:
+                0 4px 20px rgba(0,0,0,0.10);
+        }
+
+        .success-icon {
+            font-size: 70px;
+        }
+
+        h1 {
+            color: #12355b;
+            margin-bottom: 15px;
+        }
+
+        p {
+            color: #555;
+            font-size: 16px;
+            line-height: 1.6;
+        }
+
+        .message {
+            margin: 20px 0;
+            padding: 15px;
+            background: #d1e7dd;
+            color: #0f5132;
+            border-radius: 8px;
+            font-weight: bold;
+        }
+
+        .buttons {
+            margin-top: 30px;
+        }
+
+        .button {
+            display: inline-block;
+            padding: 12px 20px;
+            margin: 5px;
+            background: #1e568c;
+            color: white;
+            text-decoration: none;
+            border-radius: 6px;
+            font-weight: bold;
+        }
+
+        .button:hover {
+            background: #12355b;
+        }
+
+        .secondary {
+            background: #2a9d8f;
+        }
+
+        .secondary:hover {
+            background: #21867a;
+        }
+
+        footer {
+            margin-top: 50px;
+            background: #12355b;
+            color: white;
+            text-align: center;
+            padding: 20px;
+        }
+
+    </style>
+
+</head>
+
+<body>
+
+
+<nav>
+
+    <h2>CivicFix</h2>
+
+    <a href="/logout">
+        Logout
+    </a>
+
+</nav>
+
+
+<div class="container">
+
+    <div class="success-card">
+
+        <div class="success-icon">
+            ✅
+        </div>
+
+        <h1>
+            Complaint Submitted Successfully!
+        </h1>
+
+        <div class="message">
+            Your complaint has been recorded successfully.
+        </div>
+
+        <p>
+            Thank you for helping improve your community.
+        </p>
+
+        <p>
+            You can track the status of your complaint
+            from the My Complaints section.
+        </p>
+
+
+        <div class="buttons">
+
+            <a
+                href="/dashboard"
+                class="button"
+            >
+                Go to Dashboard
+            </a>
+
+            <a
+                href="/my-complaints"
+                class="button secondary"
+            >
+                My Complaints
+            </a>
+
+        </div>
+
+    </div>
+
+</div>
+
+
+<footer>
+
+    © 2026 CivicFix - Smart Civic Complaint Management System
+
+</footer>
+
+
+</body>
+
+</html>

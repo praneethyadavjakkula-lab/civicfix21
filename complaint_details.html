@@ -1,0 +1,243 @@
+<!DOCTYPE html>
+<html>
+<head>
+
+    <title>Complaint Details - CivicFix</title>
+
+    <style>
+
+        body {
+            font-family: Arial, sans-serif;
+            background: #f4f6f8;
+            margin: 0;
+        }
+
+        nav {
+            background: #12355b;
+            color: white;
+            padding: 15px 30px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        nav h2 {
+            margin: 0;
+        }
+
+        nav a {
+            color: white;
+            text-decoration: none;
+        }
+
+        .container {
+            width: 80%;
+            margin: 30px auto;
+        }
+
+        .card {
+            background: white;
+            padding: 25px;
+            border-radius: 10px;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.08);
+        }
+
+        h1 {
+            color: #12355b;
+        }
+
+        .info {
+            margin: 15px 0;
+        }
+
+        .label {
+            font-weight: bold;
+            color: #333;
+        }
+
+        .photo {
+            max-width: 400px;
+            max-height: 300px;
+            margin-top: 10px;
+            border-radius: 8px;
+        }
+
+        .map-button {
+            display: inline-block;
+            margin-top: 15px;
+            padding: 10px 18px;
+            background: #1e568c;
+            color: white;
+            text-decoration: none;
+            border-radius: 5px;
+        }
+
+        .back-button {
+            display: inline-block;
+            margin-top: 20px;
+            padding: 10px 18px;
+            background: #555;
+            color: white;
+            text-decoration: none;
+            border-radius: 5px;
+        }
+        .priority-high {
+    color: #d60000;
+    font-weight: bold;
+}
+
+.priority-medium {
+    color: #856404;
+    font-weight: bold;
+}
+
+.priority-low {
+    color: #155724;
+    font-weight: bold;
+}
+
+    </style>
+
+</head>
+
+<body>
+
+<nav>
+
+    <h2>CivicFix</h2>
+
+    <a href="/admin-dashboard">
+        Back to Admin Dashboard
+    </a>
+
+</nav>
+
+<div class="container">
+
+    <div class="card">
+
+        <h1>Complaint Details</h1>
+
+        <div class="info">
+            <span class="label">Complaint ID:</span>
+            {{ complaint[0] }}
+        </div>
+
+        <div class="info">
+            <span class="label">Citizen Name:</span>
+            {{ complaint[1] }}
+        </div>
+
+        <div class="info">
+            <span class="label">Email:</span>
+            {{ complaint[2] }}
+        </div>
+
+        <div class="info">
+            <span class="label">Category:</span>
+            {{ complaint[3] }}
+            <p>
+    <strong>Priority:</strong>
+
+    {% if complaint[4] == "High" %}
+        <span class="priority-high">🔴 High</span>
+
+    {% elif complaint[4] == "Medium" %}
+        <span class="priority-medium">🟡 Medium</span>
+
+    {% elif complaint[4] == "Low" %}
+        <span class="priority-low">🟢 Low</span>
+
+    {% else %}
+        <span class="priority-medium">🟡 Medium</span>
+    {% endif %}
+</p>
+        </div>
+
+        <div class="info">
+            <span class="label">Title:</span>
+            {{ complaint[4] }}
+        </div>
+
+        <div class="info">
+            <span class="label">Description:</span>
+            {{ complaint[5] }}
+        </div>
+
+        <div class="info">
+            <span class="label">Location:</span>
+            {{ complaint[6] }}
+        </div>
+
+        <div class="info">
+            <span class="label">Status:</span>
+            {{ complaint[7] }}
+        </div>
+
+        <div class="info">
+            <span class="label">Submitted Date:</span>
+            {{ complaint[8] }}
+        </div>
+
+        <div class="info">
+
+            <span class="label">Complaint Photo:</span>
+
+            <br>
+
+            {% if complaint[9] %}
+
+                <img
+                    class="photo"
+                    src="{{ url_for('uploaded_file', filename=complaint[9]) }}"
+                    alt="Complaint Photo"
+                >
+
+            {% else %}
+
+                <p>No photo uploaded.</p>
+
+            {% endif %}
+
+        </div>
+
+        <div class="info">
+
+            <span class="label">Coordinates:</span>
+
+            {% if complaint[10] and complaint[11] %}
+
+                <p>
+                    Latitude: {{ complaint[10] }}<br>
+                    Longitude: {{ complaint[11] }}
+                </p>
+
+                <a
+                    class="map-button"
+                    href="https://www.google.com/maps?q={{ complaint[10] }},{{ complaint[11] }}"
+                    target="_blank"
+                >
+                    📍 View Location on Google Maps
+                </a>
+
+            {% else %}
+
+                <p>Location coordinates not available.</p>
+
+            {% endif %}
+
+        </div>
+
+        <a
+            class="back-button"
+            href="/admin-dashboard"
+        >
+            ← Back to Dashboard
+        </a>
+
+    </div>
+
+</div>
+
+</body>
+</html>

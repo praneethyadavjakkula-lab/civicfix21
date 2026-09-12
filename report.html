@@ -1,0 +1,314 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+
+    <title>CivicFix - Report Problem</title>
+
+    <style>
+
+        body {
+            font-family: Arial, sans-serif;
+            background: #f4f7fb;
+            margin: 0;
+        }
+
+        nav {
+            background: #12355b;
+            padding: 20px 60px;
+        }
+
+        nav h2 {
+            color: white;
+            margin: 0;
+        }
+
+        .container {
+            width: 600px;
+            max-width: 90%;
+            margin: 40px auto;
+            background: white;
+            padding: 30px;
+            border-radius: 10px;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+        }
+
+        h1 {
+            color: #12355b;
+        }
+
+        label {
+            display: block;
+            margin-top: 15px;
+            margin-bottom: 7px;
+            font-weight: bold;
+        }
+
+        input,
+        select,
+        textarea {
+            width: 100%;
+            padding: 12px;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+            box-sizing: border-box;
+        }
+
+        textarea {
+            height: 120px;
+        }
+
+        button {
+            width: 100%;
+            margin-top: 25px;
+            padding: 14px;
+            background: #12355b;
+            color: white;
+            border: none;
+            border-radius: 6px;
+            font-size: 16px;
+            cursor: pointer;
+        }
+
+        button:hover {
+            background: #1e568c;
+        }
+
+        /* Google Map */
+        #map {
+            width: 100%;
+            height: 350px;
+            margin-top: 15px;
+            border-radius: 10px;
+            border: 1px solid #ccc;
+        }
+
+        #selectedLocation {
+            margin-top: 10px;
+            color: #555;
+            font-size: 14px;
+        }
+
+    </style>
+
+</head>
+
+<body>
+
+    <nav>
+        <h2>CivicFix</h2>
+    </nav>
+
+    <div class="container">
+
+        <h1>Report a Problem</h1>
+
+        <p>
+            Please provide details about the civic problem.
+        </p>
+
+        <form action="/report" method="POST" enctype="multipart/form-data">
+
+            <!-- Problem Category -->
+            <label>
+                Problem Category
+            </label>
+
+            <select name="category" required>
+
+                <option value="">
+                    Select Category
+                </option>
+
+                <option value="Road Problem">
+                    Road Problem
+                </option>
+
+                <option value="Street Light">
+                    Street Light
+                </option>
+
+                <option value="Garbage">
+                    Garbage
+                </option>
+
+                <option value="Water Problem">
+                    Water Problem
+                </option>
+
+                <option value="Drainage">
+                    Drainage
+                </option>
+
+                <option value="Other">
+                    Other
+                </option>
+                <label for="priority">Priority</label>
+
+<select name="priority" id="priority" required>
+    <option value="">Select Priority</option>
+    <option value="High">🔴 High</option>
+    <option value="Medium">🟡 Medium</option>
+    <option value="Low">🟢 Low</option>
+</select>
+
+            </select>
+
+
+            <!-- Problem Title -->
+            <label>
+                Problem Title
+            </label>
+
+            <input
+                type="text"
+                name="title"
+                placeholder="Example: Pothole near bus stop"
+                required
+            >
+
+
+            <!-- Description -->
+            <label>
+                Description
+            </label>
+
+            <textarea
+                name="description"
+                placeholder="Explain the problem..."
+                required
+            ></textarea>
+
+
+            <!-- Location -->
+            <label>
+                Location
+            </label>
+
+            <input
+                type="text"
+                name="location"
+                id="location"
+                placeholder="Enter complaint location"
+                required
+            >
+
+
+            <!-- Google Map -->
+            <label>
+                Select Location on Map
+            </label>
+
+            <div id="map"></div>
+
+            <p id="selectedLocation">
+                Click on the map to select the exact complaint location.
+            </p>
+
+
+            <!-- Hidden latitude and longitude -->
+            <input
+                type="hidden"
+                name="latitude"
+                id="latitude"
+            >
+
+            <input
+                type="hidden"
+                name="longitude"
+                id="longitude"
+            >
+
+
+            <!-- Problem Photo -->
+            <label>
+                Problem Photo
+            </label>
+
+            <input
+                type="file"
+                name="photo"
+                accept=".jpg,.jpeg,.png,.gif"
+            >
+
+
+            <!-- Submit -->
+            <button type="submit">
+                Submit Complaint
+            </button>
+
+        </form>
+
+    </div>
+
+
+    <!-- Google Maps JavaScript -->
+    <script>
+
+        let map;
+        let marker;
+
+        function initMap() {
+
+            const defaultLocation = {
+                lat: 17.2473,
+                lng: 79.1433
+            };
+
+            map = new google.maps.Map(
+                document.getElementById("map"),
+                {
+                    center: defaultLocation,
+                    zoom: 13
+                }
+            );
+
+
+            // When user clicks on map
+            map.addListener("click", function(event) {
+
+                const lat = event.latLng.lat();
+                const lng = event.latLng.lng();
+
+
+                // Remove previous marker
+                if (marker) {
+                    marker.setMap(null);
+                }
+
+
+                // Add new marker
+                marker = new google.maps.Marker({
+                    position: event.latLng,
+                    map: map
+                });
+
+
+                // Save coordinates in hidden inputs
+                document.getElementById("latitude").value = lat;
+                document.getElementById("longitude").value = lng;
+
+
+                // Display selected coordinates
+                document.getElementById("selectedLocation").innerText =
+                    "Selected Location: " +
+                    lat.toFixed(6) +
+                    ", " +
+                    lng.toFixed(6);
+
+            });
+
+        }
+
+    </script>
+
+
+    <!-- Google Maps API -->
+    <script
+        async
+        src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBcfqRTbksTLZ9WKzuv_JBR33EH-HgSVd4&callback=initMap">
+    </script>
+
+</body>
+
+</html>

@@ -1,0 +1,1297 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+
+    <title>Admin Dashboard - CivicFix</title>
+
+    <style>
+
+        * {
+            box-sizing: border-box;
+        }
+
+        body {
+            margin: 0;
+            font-family: Arial, sans-serif;
+            background: #f4f6f8;
+        }
+
+        /* ================= NAVBAR ================= */
+
+        nav {
+            background: #12355b;
+            color: white;
+            padding: 15px 30px;
+
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        nav h2 {
+            margin: 0;
+        }
+
+        nav a {
+            color: white;
+            text-decoration: none;
+            font-weight: bold;
+        }
+
+        nav a:hover {
+            text-decoration: underline;
+        }
+
+
+        /* ================= CONTAINER ================= */
+
+        .container {
+            width: 95%;
+            max-width: 1400px;
+            margin: 30px auto;
+        }
+
+        h1 {
+            color: #12355b;
+        }
+
+
+        /* ================= EXPORT ================= */
+
+        .export-section {
+            margin: 20px 0;
+        }
+
+        .export-button {
+            display: inline-block;
+            background: #2a9d8f;
+            color: white;
+            text-decoration: none;
+            padding: 10px 15px;
+            border-radius: 6px;
+            font-weight: bold;
+        }
+
+        .export-button:hover {
+            background: #21867a;
+        }
+
+
+        /* ================= STATS ================= */
+
+        .stats {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 20px;
+            margin: 25px 0;
+        }
+
+        .stat-card {
+            background: white;
+            padding: 20px;
+            text-align: center;
+            border-radius: 10px;
+
+            box-shadow:
+                0 4px 15px rgba(0,0,0,0.08);
+        }
+
+        .clickable-card {
+            cursor: pointer;
+            transition: transform 0.2s ease;
+        }
+
+        .clickable-card:hover {
+            transform: translateY(-5px);
+        }
+
+        .stat-card h3 {
+            margin-bottom: 10px;
+            color: #555;
+        }
+
+        .stat-card p {
+            margin: 0;
+            font-size: 32px;
+            font-weight: bold;
+            color: #12355b;
+        }
+
+
+        /* ================= FILTERS ================= */
+
+        .filters {
+            background: white;
+            padding: 20px;
+            border-radius: 10px;
+            margin-bottom: 25px;
+
+            display: flex;
+            gap: 15px;
+            flex-wrap: wrap;
+        }
+
+        .filters input,
+        .filters select {
+            padding: 10px;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+            font-size: 14px;
+        }
+
+        #searchInput {
+            flex: 1;
+            min-width: 220px;
+        }
+
+
+        /* ================= TABLE ================= */
+
+        .table-container {
+            background: white;
+            padding: 20px;
+            border-radius: 10px;
+            overflow-x: auto;
+
+            box-shadow:
+                0 4px 15px rgba(0,0,0,0.08);
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            min-width: 1350px;
+        }
+
+        th {
+            background: #12355b;
+            color: white;
+            padding: 12px;
+            text-align: left;
+        }
+
+        td {
+            padding: 12px;
+            border-bottom: 1px solid #ddd;
+            vertical-align: top;
+        }
+
+        tr:hover {
+            background: #f8f9fa;
+        }
+
+
+        /* ================= PHOTO ================= */
+
+        .complaint-photo {
+            width: 100px;
+            height: 75px;
+            object-fit: cover;
+            border-radius: 5px;
+        }
+
+        .no-photo,
+        .no-map {
+            color: #777;
+            font-size: 13px;
+        }
+
+
+        /* ================= PRIORITY ================= */
+
+        .priority-high {
+            display: inline-block;
+            background: #ffdddd;
+            color: #d60000;
+            padding: 6px 10px;
+            border-radius: 15px;
+            font-weight: bold;
+            white-space: nowrap;
+        }
+
+        .priority-medium {
+            display: inline-block;
+            background: #fff3cd;
+            color: #856404;
+            padding: 6px 10px;
+            border-radius: 15px;
+            font-weight: bold;
+            white-space: nowrap;
+        }
+
+        .priority-low {
+            display: inline-block;
+            background: #d4edda;
+            color: #155724;
+            padding: 6px 10px;
+            border-radius: 15px;
+            font-weight: bold;
+            white-space: nowrap;
+        }
+
+
+        /* ================= STATUS ================= */
+
+        .status-badge {
+            display: inline-block;
+            padding: 6px 10px;
+            border-radius: 15px;
+            font-weight: bold;
+            white-space: nowrap;
+        }
+
+        .status-pending {
+            background: #fff3cd;
+            color: #856404;
+        }
+
+        .status-progress {
+            background: #cfe2ff;
+            color: #084298;
+        }
+
+        .status-resolved {
+            background: #d4edda;
+            color: #155724;
+        }
+
+
+        /* ================= BUTTONS ================= */
+
+        .map-link,
+        .details-button {
+            display: inline-block;
+            padding: 7px 10px;
+            background: #1e568c;
+            color: white;
+            text-decoration: none;
+            border-radius: 5px;
+            margin-bottom: 8px;
+        }
+
+        .map-link:hover,
+        .details-button:hover {
+            background: #12355b;
+        }
+
+        button {
+            padding: 7px 10px;
+            border: none;
+            border-radius: 5px;
+            background: #2a9d8f;
+            color: white;
+            cursor: pointer;
+        }
+
+        button:hover {
+            opacity: 0.9;
+        }
+
+
+        /* ================= STATUS SELECT ================= */
+
+        select.status-select {
+            padding: 7px;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+            margin-bottom: 8px;
+        }
+
+
+        /* ================= DELETE ================= */
+
+        .delete-button {
+            background: #e76f51;
+            margin-top: 5px;
+        }
+
+        .delete-button:hover {
+            background: #c94c32;
+        }
+
+
+        /* ================= NO COMPLAINTS ================= */
+
+        .no-complaints {
+            text-align: center;
+            padding: 30px;
+            color: #777;
+            font-size: 18px;
+            font-weight: bold;
+        }
+
+
+        /* ================= FOOTER ================= */
+
+        footer {
+            margin-top: 40px;
+            background: #12355b;
+            color: white;
+            text-align: center;
+            padding: 20px;
+        }
+
+
+        /* ================= MOBILE ================= */
+
+        @media (max-width: 800px) {
+
+            .stats {
+                grid-template-columns: repeat(2, 1fr);
+            }
+
+            nav {
+                flex-direction: column;
+                gap: 10px;
+            }
+
+        }
+
+    </style>
+
+</head>
+
+
+<body>
+
+
+<!-- ================= NAVBAR ================= -->
+
+<nav>
+
+    <h2>CivicFix Admin</h2>
+
+    <a href="/admin-logout">
+        Logout
+    </a>
+
+</nav>
+
+
+
+<!-- ================= MAIN CONTAINER ================= -->
+
+<div class="container">
+
+
+    <h1>
+        Admin Dashboard
+    </h1>
+
+
+    <!-- ================= EXPORT CSV ================= -->
+
+    <div class="export-section">
+
+        <a
+            href="/export-complaints"
+            class="export-button"
+        >
+            ⬇ Export Complaints CSV
+        </a>
+
+    </div>
+
+
+
+    <!-- ================= STATISTICS ================= -->
+
+    <div class="stats">
+        <!-- HIGH PRIORITY -->
+
+<div
+    class="stat-card clickable-card"
+    onclick="filterByPriority('High')"
+>
+    <h3>🔴 High Priority</h3>
+
+    <p>
+        {{ high_priority }}
+    </p>
+</div>
+
+
+<!-- MEDIUM PRIORITY -->
+
+<div
+    class="stat-card clickable-card"
+    onclick="filterByPriority('Medium')"
+>
+    <h3>🟡 Medium Priority</h3>
+
+    <p>
+        {{ medium_priority }}
+    </p>
+</div>
+
+
+<!-- LOW PRIORITY -->
+
+<div
+    class="stat-card clickable-card"
+    onclick="filterByPriority('Low')"
+>
+    <h3>🟢 Low Priority</h3>
+
+    <p>
+        {{ low_priority }}
+    </p>
+</div>
+
+
+        <!-- TOTAL -->
+
+        <div
+            class="stat-card clickable-card"
+            onclick="filterByStatus('All')"
+        >
+
+            <h3>
+                Total Complaints
+            </h3>
+
+            <p>
+                {{ total }}
+            </p>
+
+        </div>
+
+
+        <!-- PENDING -->
+
+        <div
+            class="stat-card clickable-card"
+            onclick="filterByStatus('Pending')"
+        >
+
+            <h3>
+                Pending
+            </h3>
+
+            <p>
+                {{ pending }}
+            </p>
+
+        </div>
+
+
+        <!-- IN PROGRESS -->
+
+        <div
+            class="stat-card clickable-card"
+            onclick="filterByStatus('In Progress')"
+        >
+
+            <h3>
+                In Progress
+            </h3>
+
+            <p>
+                {{ in_progress }}
+            </p>
+
+        </div>
+
+
+        <!-- RESOLVED -->
+
+        <div
+            class="stat-card clickable-card"
+            onclick="filterByStatus('Resolved')"
+        >
+
+            <h3>
+                Resolved
+            </h3>
+
+            <p>
+                {{ resolved }}
+            </p>
+
+        </div>
+
+
+    </div>
+
+
+
+    <!-- ================= FILTERS ================= -->
+
+    <div class="filters">
+
+
+        <!-- SEARCH -->
+
+        <input
+            type="text"
+            id="searchInput"
+            placeholder="Search complaints..."
+            onkeyup="filterComplaints()"
+        >
+
+
+        <!-- STATUS FILTER -->
+
+        <select
+            id="statusFilter"
+            onchange="filterComplaints()"
+        >
+
+            <option value="All">
+                All Status
+            </option>
+
+            <option value="Pending">
+                Pending
+            </option>
+
+            <option value="In Progress">
+                In Progress
+            </option>
+
+            <option value="Resolved">
+                Resolved
+            </option>
+
+        </select>
+
+
+
+        <!-- CATEGORY FILTER -->
+
+        <select
+            id="categoryFilter"
+            onchange="filterComplaints()"
+        >
+
+            <option value="All">
+                All Categories
+            </option>
+
+            <option value="Road Problem">
+                Road Problem
+            </option>
+
+            <option value="Street Light">
+                Street Light
+            </option>
+
+            <option value="Garbage">
+                Garbage
+            </option>
+
+            <option value="Water Problem">
+                Water Problem
+            </option>
+
+            <option value="Drainage">
+                Drainage
+            </option>
+
+            <option value="Other">
+                Other
+            </option>
+
+        </select>
+
+
+
+        <!-- PRIORITY FILTER -->
+
+        <select
+            id="priorityFilter"
+            onchange="filterComplaints()"
+        >
+
+            <option value="All">
+                All Priorities
+            </option>
+
+            <option value="High">
+                🔴 High
+            </option>
+
+            <option value="Medium">
+                🟡 Medium
+            </option>
+
+            <option value="Low">
+                🟢 Low
+            </option>
+
+        </select>
+
+
+    </div>
+
+
+
+    <!-- ================= COMPLAINT TABLE ================= -->
+
+    <div class="table-container">
+
+
+        <table id="complaintsTable">
+
+
+            <thead>
+
+                <tr>
+
+                    <th>ID</th>
+
+                    <th>Citizen</th>
+
+                    <th>Email</th>
+
+                    <th>Category</th>
+
+                    <th>Priority</th>
+
+                    <th>Title</th>
+
+                    <th>Description</th>
+
+                    <th>Photo</th>
+
+                    <th>Location</th>
+
+                    <th>Map</th>
+
+                    <th>Status</th>
+
+                    <th>Date</th>
+
+                    <th>Action</th>
+
+                </tr>
+
+            </thead>
+
+
+
+            <tbody>
+
+
+                {% for complaint in complaints %}
+
+                <tr>
+
+
+                    <!-- ================= ID ================= -->
+
+                    <td>
+
+                        {{ complaint[0] }}
+
+                    </td>
+
+
+
+                    <!-- ================= CITIZEN ================= -->
+
+                    <td>
+
+                        {{ complaint[1] }}
+
+                    </td>
+
+
+
+                    <!-- ================= EMAIL ================= -->
+
+                    <td>
+
+                        {{ complaint[2] }}
+
+                    </td>
+
+
+
+                    <!-- ================= CATEGORY ================= -->
+
+                    <td>
+
+                        {{ complaint[3] }}
+
+                    </td>
+
+
+
+                    <!-- ================= PRIORITY ================= -->
+
+                    <td>
+
+                        {% if complaint[4] == "High" %}
+
+                            <span class="priority-high">
+                                🔴 High
+                            </span>
+
+                        {% elif complaint[4] == "Medium" %}
+
+                            <span class="priority-medium">
+                                🟡 Medium
+                            </span>
+
+                        {% elif complaint[4] == "Low" %}
+
+                            <span class="priority-low">
+                                🟢 Low
+                            </span>
+
+                        {% else %}
+
+                            <span class="priority-medium">
+                                🟡 Medium
+                            </span>
+
+                        {% endif %}
+
+                    </td>
+
+
+
+                    <!-- ================= TITLE ================= -->
+
+                    <td>
+
+                        {{ complaint[5] }}
+
+                    </td>
+
+
+
+                    <!-- ================= DESCRIPTION ================= -->
+
+                    <td>
+
+                        {{ complaint[6] }}
+
+                    </td>
+
+
+
+                    <!-- ================= PHOTO ================= -->
+
+                    <td>
+
+                        {% if complaint[10] %}
+
+                            <img
+                                class="complaint-photo"
+                                src="{{ url_for(
+                                    'uploaded_file',
+                                    filename=complaint[10]
+                                ) }}"
+                                alt="Complaint Photo"
+                            >
+
+                        {% else %}
+
+                            <span class="no-photo">
+                                No Photo
+                            </span>
+
+                        {% endif %}
+
+                    </td>
+
+
+
+                    <!-- ================= LOCATION ================= -->
+
+                    <td>
+
+                        {{ complaint[7] }}
+
+                    </td>
+
+
+
+                    <!-- ================= MAP ================= -->
+
+                    <td>
+
+                        {% if complaint[11] and complaint[12] %}
+
+                            <a
+                                class="map-link"
+                                href="https://www.google.com/maps?q={{ complaint[11] }},{{ complaint[12] }}"
+                                target="_blank"
+                            >
+                                View Map
+                            </a>
+
+                        {% else %}
+
+                            <span class="no-map">
+                                No Map
+                            </span>
+
+                        {% endif %}
+
+                    </td>
+
+
+
+                    <!-- ================= STATUS ================= -->
+
+                    <td>
+
+                        {% if complaint[8] == "Pending" %}
+
+                            <span class="status-badge status-pending">
+                                Pending
+                            </span>
+
+                        {% elif complaint[8] == "In Progress" %}
+
+                            <span class="status-badge status-progress">
+                                In Progress
+                            </span>
+
+                        {% elif complaint[8] == "Resolved" %}
+
+                            <span class="status-badge status-resolved">
+                                Resolved
+                            </span>
+
+                        {% else %}
+
+                            {{ complaint[8] }}
+
+                        {% endif %}
+
+                    </td>
+
+
+
+                    <!-- ================= DATE ================= -->
+
+                    <td>
+
+                        {{ complaint[9] }}
+
+                    </td>
+
+
+
+                    <!-- ================= ACTION ================= -->
+
+                    <td>
+
+
+                        <!-- VIEW DETAILS -->
+
+                        <a
+                            href="/complaint/{{ complaint[0] }}"
+                            class="details-button"
+                        >
+                            View Details
+                        </a>
+
+
+
+                        <!-- UPDATE STATUS -->
+
+                        <form
+                            action="/update-status/{{ complaint[0] }}"
+                            method="POST"
+                        >
+
+                            <select
+                                name="status"
+                                class="status-select"
+                            >
+
+                                <option
+                                    value="Pending"
+                                    {% if complaint[8] == "Pending" %}
+                                        selected
+                                    {% endif %}
+                                >
+                                    Pending
+                                </option>
+
+
+                                <option
+                                    value="In Progress"
+                                    {% if complaint[8] == "In Progress" %}
+                                        selected
+                                    {% endif %}
+                                >
+                                    In Progress
+                                </option>
+
+
+                                <option
+                                    value="Resolved"
+                                    {% if complaint[8] == "Resolved" %}
+                                        selected
+                                    {% endif %}
+                                >
+                                    Resolved
+                                </option>
+
+                            </select>
+
+
+                            <br>
+
+
+                            <button type="submit">
+                                Update
+                            </button>
+
+                        </form>
+
+
+
+                        <!-- DELETE COMPLAINT -->
+
+                        <form
+                            action="/delete-complaint/{{ complaint[0] }}"
+                            method="POST"
+                            onsubmit="return confirm('Are you sure you want to delete this complaint?');"
+                        >
+
+                            <button
+                                type="submit"
+                                class="delete-button"
+                            >
+                                Delete
+                            </button>
+
+                        </form>
+
+
+                    </td>
+
+
+                </tr>
+
+                {% endfor %}
+
+
+
+                <!-- ================= NO COMPLAINTS ================= -->
+
+                <tr
+                    id="noComplaintsMessage"
+                    style="display: none;"
+                >
+
+                    <td
+                        colspan="13"
+                        class="no-complaints"
+                    >
+                        No complaints found.
+                    </td>
+
+                </tr>
+
+
+            </tbody>
+
+
+        </table>
+
+
+    </div>
+
+
+</div>
+
+
+
+<!-- ================= FOOTER ================= -->
+
+<footer>
+
+    <p>
+        © 2026 CivicFix Admin Panel
+    </p>
+
+</footer>
+
+
+
+<!-- ================= JAVASCRIPT ================= -->
+
+<script>
+
+
+/* =====================================================
+   FILTER COMPLAINTS
+   ===================================================== */
+
+function filterComplaints() {
+
+
+    /* SEARCH VALUE */
+
+    let search =
+        document.getElementById("searchInput")
+        .value
+        .toLowerCase();
+
+
+
+    /* STATUS VALUE */
+
+    let status =
+        document.getElementById("statusFilter")
+        .value;
+
+
+
+    /* CATEGORY VALUE */
+
+    let category =
+        document.getElementById("categoryFilter")
+        .value;
+
+
+
+    /* PRIORITY VALUE */
+
+    let priority =
+        document.getElementById("priorityFilter")
+        .value;
+
+
+
+    /* TABLE */
+
+    let table =
+        document.getElementById("complaintsTable");
+
+
+    if (!table) {
+        return;
+    }
+
+
+
+    /* ALL TABLE ROWS */
+
+    let rows =
+        table.getElementsByTagName("tr");
+
+
+
+    /* COUNT VISIBLE ROWS */
+
+    let visibleRows = 0;
+
+
+
+    /*
+        TABLE COLUMNS
+
+        0  = ID
+        1  = Citizen
+        2  = Email
+        3  = Category
+        4  = Priority
+        5  = Title
+        6  = Description
+        7  = Photo
+        8  = Location
+        9  = Map
+        10 = Status
+        11 = Date
+        12 = Action
+    */
+
+
+
+    for (let i = 1; i < rows.length; i++) {
+
+
+        let row =
+            rows[i];
+
+
+
+        /* SKIP NO COMPLAINTS MESSAGE */
+
+        if (row.id === "noComplaintsMessage") {
+            continue;
+        }
+
+
+
+        /* SEARCH TEXT */
+
+        let text =
+            row.innerText.toLowerCase();
+
+
+
+        /* CATEGORY */
+
+        let rowCategory =
+            row.cells[3]
+            .innerText
+            .trim();
+
+
+
+        /* PRIORITY */
+
+        let rowPriority =
+            row.cells[4]
+            .innerText
+            .trim();
+
+
+
+        /* STATUS */
+
+        let rowStatus =
+            row.cells[10]
+            .innerText
+            .trim();
+
+
+
+        /* SEARCH MATCH */
+
+        let searchMatch =
+            text.includes(search);
+
+
+
+        /* STATUS MATCH */
+
+        let statusMatch =
+            status === "All" ||
+            rowStatus.includes(status);
+
+
+
+        /* CATEGORY MATCH */
+
+        let categoryMatch =
+            category === "All" ||
+            rowCategory === category;
+
+
+
+        /* PRIORITY MATCH */
+
+        let priorityMatch =
+            priority === "All" ||
+            rowPriority.includes(priority);
+
+
+
+        /* FINAL RESULT */
+
+        if (
+            searchMatch &&
+            statusMatch &&
+            categoryMatch &&
+            priorityMatch
+        ) {
+
+            row.style.display = "";
+
+            visibleRows++;
+
+        }
+
+        else {
+
+            row.style.display = "none";
+
+        }
+
+
+    }
+
+
+
+    /* =================================================
+       NO COMPLAINTS MESSAGE
+       ================================================= */
+
+    let message =
+        document.getElementById(
+            "noComplaintsMessage"
+        );
+
+
+    if (message) {
+
+
+        if (visibleRows === 0) {
+
+            message.style.display = "";
+
+        }
+
+        else {
+
+            message.style.display = "none";
+
+        }
+
+
+    }
+
+
+}
+
+
+
+/* =====================================================
+   STAT CARD FILTER
+   ===================================================== */
+
+function filterByStatus(status) {
+
+
+    document.getElementById(
+        "statusFilter"
+    ).value = status;
+
+
+
+    filterComplaints();
+
+
+
+    document.getElementById(
+        "complaintsTable"
+    ).scrollIntoView({
+
+        behavior: "smooth"
+
+    });
+
+
+}
+function filterByPriority(priority) {
+
+    document.getElementById("priorityFilter").value = priority;
+
+    filterComplaints();
+
+    document.getElementById("complaintsTable").scrollIntoView({
+        behavior: "smooth"
+    });
+
+}
+
+
+
+</script>
+
+
+</body>
+
+</html>
